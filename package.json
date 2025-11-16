@@ -1,0 +1,41 @@
+{
+  "name": "redis-distro-scheduler",
+  "version": "0.1.0",
+  "description": "Distributed, Redis-backed cron scheduler with multi-tenant guardrails and jitter, designed for Node.js 24 and TypeScript.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts",
+    "changelog": "auto-changelog --template ./changelog-template.hbs --output CHANGELOG.md --unreleased",
+    "postpublish": "echo 'Published version $npm_package_version'",
+    "version": "echo \"Bumping to $npm_package_version\"",
+    "postversion": "npm run changelog && git add CHANGELOG.md && git commit -m 'chore: update changelog' && git push && git push --tags || git tag -f v$npm_package_version && git push -f --tags"
+  },
+  "keywords": [
+    "redis",
+    "scheduler",
+    "cron",
+    "distributed",
+    "multi-tenant",
+    "node-cron",
+    "typescript"
+  ],
+  "author": "Balaji Lakshmi Narayanan",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "auto-changelog": "^2.5.0",
+    "cron-parser": "^5.0.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.9",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0"
+  }
+}
