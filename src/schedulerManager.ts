@@ -25,7 +25,7 @@ export class SchedulerManager {
 
   constructor(callbackFunc: callbackFn, opts: SchedulerManagerOptions) {
     this.redisMain = new Redis(opts.redisUrl!);
-    this.redisSub = this.redisMain.duplicate();
+    this.redisSub = new Redis(opts.redisUrl!);
 
     this.redis = opts.redisUrl;
     this.callback = callbackFunc;
