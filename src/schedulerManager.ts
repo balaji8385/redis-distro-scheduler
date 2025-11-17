@@ -24,15 +24,14 @@ export class SchedulerManager {
     schedules: ScheduleRecord[]
   ): Promise<void> {
     for (const s of schedules) {
-      this.upsertSchedule(s);
+      this.upsertSchedule({...s, enabled: s.enabled ?? true});
     }
   }
 
   /** Create or update a schedule in memory */
   public upsertSchedule(schedule: ScheduleRecord): void {
     const existing = this.schedulers.get(schedule.id);
-
-    if (!schedule.enabled) {
+    if (Object.hasOwn(schedule, "enabled") && !schedule.enabled) {
       if (existing) {
         existing.stop();
         this.schedulers.delete(schedule.id);
@@ -41,20 +40,18 @@ export class SchedulerManager {
     }
 
     const jitter = this.getMaxJitterForSchedule(schedule);
-
     if (existing) {
       existing.update(schedule.cronExpression, schedule.timezone, jitter);
     } else {
       const sched = new Scheduler({
         scheduleId: schedule.id,
-        name: schedule.name,
+        name: schedule.name ?? schedule.id,
         cronExpression: schedule.cronExpression,
         timezone: schedule.timezone,
         redis: this.redis,
         maxJitterMs: jitter,
         callback: () => this.callback(schedule),
       });
-
       this.schedulers.set(schedule.id, sched);
     }
   }

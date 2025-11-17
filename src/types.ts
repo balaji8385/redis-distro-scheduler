@@ -18,18 +18,18 @@ export interface RedisLike {
 
 export interface ScheduleRecord {
   id: string;
-  name: string;
+  name?: string;
   cronExpression: string;
   timezone?: string;
-  payload: any;
-  enabled: boolean;
+  payload?: any;
+  enabled?: boolean;
 }
 
 export type callbackFn = (schedule: ScheduleRecord) => Promise<void>;
 
 export interface SchedulerOptions {
   scheduleId: string;
-  name: string;
+  name?: string;
   cronExpression: string;
   timezone?: string;
   redis: RedisLike;

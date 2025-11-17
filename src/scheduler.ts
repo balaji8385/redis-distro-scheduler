@@ -4,7 +4,7 @@ import type { RedisLike, SchedulerOptions, SchedulerInternal } from "./types";
 
 export class Scheduler implements SchedulerInternal {
   private id: string;
-  private name: string;
+  private name?: string;
   private cronExpression: string;
   private timezone?: string;
   private redis: RedisLike;

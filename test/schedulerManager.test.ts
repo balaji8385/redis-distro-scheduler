@@ -24,16 +24,12 @@ describe("SchedulerManager", () => {
 
     const schedule: ScheduleRecord = {
       id: "sch-1",
-      name: "Test",
       cronExpression: "* * * * * *",
       timezone: "UTC",
-      payload: {},
-      enabled: true,
     };
 
     await manager.loadInitialSchedules([schedule]);
-
-    expect(manager.listActiveScheduleIds()).toEqual(["sch-1"]);
+    expect(manager.listActiveScheduleIds()).toEqual([schedule.id]);
 
     // update
     manager.upsertSchedule({
@@ -41,10 +37,10 @@ describe("SchedulerManager", () => {
       cronExpression: "*/2 * * * * *",
     });
 
-    expect(manager.listActiveScheduleIds()).toEqual(["sch-1"]);
+    expect(manager.listActiveScheduleIds()).toEqual([schedule.id]);
 
     // remove
-    manager.removeSchedule("sch-1");
+    manager.removeSchedule(schedule.id);
     expect(manager.listActiveScheduleIds()).toEqual([]);
   });
 });
