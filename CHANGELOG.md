@@ -7,7 +7,15 @@ Repository:
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.3.0...HEAD)
+## [Unreleased](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.3.1...HEAD)
+
+## [v0.3.1](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.3.0...v0.3.1) – 2025-11-17
+
+### Commits
+
+- [ [`67e51e6`](/commit/67e51e6e9453d0ac2419bbd863151a7c6f5d391b) ] updated the readme by Balaji L Narayanan <<lbalaji@live.com>>
+- [ [`b5b5a94`](/commit/b5b5a941bbb75ebfe8f4b999696ce74351847437) ] updated the readme by Balaji L Narayanan <<lbalaji@live.com>>
+- [ [`cc60a28`](/commit/cc60a28073d124725245a715b32231b11e65398e) ] chore: update changelog by Balaji L Narayanan <<lbalaji@live.com>>
 
 ## [v0.3.0](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.2.4...v0.3.0) – 2025-11-17
 
