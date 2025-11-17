@@ -1,6 +1,6 @@
 {
   "name": "redis-distro-scheduler",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Distributed, Redis-backed cron scheduler with multi-tenant guardrails and jitter, designed for Node.js 24 and TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
