@@ -1,13 +1,14 @@
 
 import cron, { ScheduledTask } from "node-cron";
-import type { RedisLike, SchedulerOptions, SchedulerInternal } from "./types";
+import type {SchedulerOptions, SchedulerInternal } from "./types";
+import Redis from "ioredis";
 
 export class Scheduler implements SchedulerInternal {
   private id: string;
   private name?: string;
   private cronExpression: string;
   private timezone?: string;
-  private redis: RedisLike;
+  private redis: Redis;
   private lockKey: string;
   private lockTtlMs: number;
   private maxJitterMs: number;
@@ -85,9 +86,9 @@ export class Scheduler implements SchedulerInternal {
     const result = await this.redis.set(
       this.lockKey,
       "locked",
-      "NX",
       "PX",
-      this.lockTtlMs
+      this.lockTtlMs,
+      "NX"
     );
 
     return result === "OK";

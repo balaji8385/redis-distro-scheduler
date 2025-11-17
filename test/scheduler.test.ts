@@ -29,9 +29,9 @@ vi.mock("node-cron", () => {
 });
 
 import { Scheduler } from "../src/scheduler";
-import type { RedisLike } from "../src/types";
+import Redis from "ioredis";
 
-class FakeRedis implements RedisLike {
+class FakeRedis {
   private store = new Map<string, { value: string; expiresAt?: number }>();
 
   async set(

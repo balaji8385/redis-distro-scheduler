@@ -30,6 +30,7 @@
   "dependencies": {
     "auto-changelog": "^2.5.0",
     "cron-parser": "^5.0.0",
+    "ioredis": "^5.8.2",
     "node-cron": "^3.0.3"
   },
   "devDependencies": {
