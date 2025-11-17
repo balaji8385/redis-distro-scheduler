@@ -63,7 +63,7 @@ async function fetchAllEnabledSchedules(): Promise<ScheduleRecord[]> {
   return [];
 }
 
-async function runReport(schedule: ScheduleRecord): Promise<void> {
+async function callback(schedule: ScheduleRecord): Promise<void> {
   // Your business logic:
   //  - Generate report
   //  - Send email
@@ -73,7 +73,7 @@ async function runReport(schedule: ScheduleRecord): Promise<void> {
 
 const manager = new SchedulerManager({
   redis,
-  runReport,
+  callback,
   defaultMaxJitterMs: 30_000, // spread executions up to 30s per schedule
 });
 
@@ -154,7 +154,7 @@ async function validateScheduleBeforeSave(input: {
   1. All pods try `SET key "locked" NX PX <ttl>`.
   2. Only **one** pod gets `"OK"` and runs the job.
   3. That pod waits a **deterministic jitter** based on schedule ID, up to `maxJitterMs`.
-  4. It then executes your `runReport(schedule)` callback.
+  4. It then executes your `callback(schedule)` callback.
 
 ## API Overview
 
@@ -165,16 +165,15 @@ Low-level class, usually managed by `SchedulerManager`.
 ```ts
 import { Scheduler } from "redis-distro-scheduler";
 
-const scheduler = new Scheduler({
+const scheduler = new Scheduler(async () => {
+    console.log("Running nightly report...");
+  }, {
   scheduleId: "uuid-123",
   name: "nightly-report",
   cronExpression: "0 2 * * *", // every day at 02:00
   timezone: "America/New_York",
   redis,
   maxJitterMs: 30_000,
-  callback: async () => {
-    console.log("Running nightly report...");
-  },
 });
 ```
 
@@ -189,11 +188,10 @@ Methods:
 High-level orchestrator for many schedules.
 
 ```ts
-const manager = new SchedulerManager({
-  redis,
-  runReport: async (schedule) => {
+const manager = new SchedulerManager(callback: async (schedule) => {
     // ...
-  },
+  }, {
+  redis
 });
 
 await manager.loadInitialSchedules(fetchAllEnabled);

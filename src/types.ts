@@ -26,7 +26,7 @@ export interface ScheduleRecord {
   enabled: boolean;
 }
 
-export type RunReportFn = (schedule: ScheduleRecord) => Promise<void>;
+export type callbackFn = (schedule: ScheduleRecord) => Promise<void>;
 
 export interface SchedulerOptions {
   scheduleId: string;

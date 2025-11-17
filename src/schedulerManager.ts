@@ -1,22 +1,22 @@
 
-import type { RedisLike, ScheduleRecord, RunReportFn } from "./types";
+import type { RedisLike, ScheduleRecord, callbackFn } from "./types";
 import { Scheduler } from "./scheduler";
 
 export interface SchedulerManagerOptions {
   redis: RedisLike;
-  runReport: RunReportFn;
+  callback: callbackFn;
   defaultMaxJitterMs?: number;
 }
 
 export class SchedulerManager {
   private redis: RedisLike;
-  private runReport: RunReportFn;
+  private callback: callbackFn;
   private schedulers = new Map<string, Scheduler>();
   private defaultMaxJitterMs: number;
 
-  constructor(opts: SchedulerManagerOptions) {
+  constructor(callbackFunc: callbackFn, opts: SchedulerManagerOptions) {
     this.redis = opts.redis;
-    this.runReport = opts.runReport;
+    this.callback = callbackFunc;
     this.defaultMaxJitterMs = opts.defaultMaxJitterMs ?? 30_000;
   }
 
@@ -53,7 +53,7 @@ export class SchedulerManager {
         timezone: schedule.timezone,
         redis: this.redis,
         maxJitterMs: jitter,
-        callback: () => this.runReport(schedule),
+        callback: () => this.callback(schedule),
       });
 
       this.schedulers.set(schedule.id, sched);

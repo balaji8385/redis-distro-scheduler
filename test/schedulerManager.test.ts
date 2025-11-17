@@ -17,9 +17,8 @@ describe("SchedulerManager", () => {
     const redis = new FakeRedis();
     const runReport = vi.fn(async () => {});
 
-    const manager = new SchedulerManager({
+    const manager = new SchedulerManager(runReport, {
       redis,
-      runReport,
       defaultMaxJitterMs: 0,
     });
 
