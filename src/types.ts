@@ -18,7 +18,6 @@ export interface RedisLike {
 
 export interface ScheduleRecord {
   id: string;
-  customerId: string;
   name: string;
   cronExpression: string;
   timezone?: string;

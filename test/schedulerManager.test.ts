@@ -24,7 +24,6 @@ describe("SchedulerManager", () => {
 
     const schedule: ScheduleRecord = {
       id: "sch-1",
-      customerId: "c-1",
       name: "Test",
       cronExpression: "* * * * * *",
       timezone: "UTC",
