@@ -7,7 +7,14 @@ Repository:
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.2.4...HEAD)
+## [Unreleased](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.3.0...HEAD)
+
+## [v0.3.0](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.2.4...v0.3.0) – 2025-11-17
+
+### Commits
+
+- [ [`57a3b99`](/commit/57a3b993ddc31c30f7e8abe0fde3822120efe30d) ] redis pub dub distribution added to remove/delete/upsert events by Balaji L Narayanan <<lbalaji@live.com>>
+- [ [`41d3fee`](/commit/41d3fee1d2d1dd85c6feedcb38ad396f1ee7afd4) ] chore: update changelog by Balaji L Narayanan <<lbalaji@live.com>>
 
 ## [v0.2.4](https://github.com/balaji8385/redis-distro-scheduler/compare/v0.2.3...v0.2.4) – 2025-11-17
 
