@@ -4,7 +4,6 @@ import { Scheduler } from "./scheduler";
 
 export interface SchedulerManagerOptions {
   redis: RedisLike;
-  callback: callbackFn;
   defaultMaxJitterMs?: number;
 }
 
