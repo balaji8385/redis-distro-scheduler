@@ -144,34 +144,6 @@ async function validateScheduleBeforeSave(input: {
 
 ## API Overview
 
-### `Scheduler`
-
-Low-level class, usually managed by `SchedulerManager`.
-
-```ts
-import { Scheduler } from "redis-distro-scheduler";
-import Redis from "ioredis";
-
-const redis = new Redis(process.env.REDIS_URL);
-
-const scheduler = new Scheduler(async () => {
-    console.log("Running nightly report...");
-  }, {
-  scheduleId: "uuid-123",
-  name: "nightly-report",
-  cronExpression: "0 2 * * *", // every day at 02:00
-  timezone: "America/New_York",
-  redis,
-  maxJitterMs: 30_000,
-});
-```
-
-Methods:
-
-- `start()` — (re)start cron
-- `stop()` — stop cron
-- `update(cronExpression, timezone?, maxJitterMs?)` — update schedule on the fly
-
 ### `SchedulerManager`
 
 High-level orchestrator for many schedules.
