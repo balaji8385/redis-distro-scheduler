@@ -1,16 +1,27 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["ES2023"],
+    "allowJs": true,
+    "checkJs": false,
+    "outDir": "./dist",
+    "emitDeclarationOnly": false,
+    "sourceMap": false,
+    "rootDir": "./src",
+    "removeComments": true,
+    "typeRoots": ["node_modules/@types", "src"],
+    "baseUrl": ".",
     "declaration": true,
-    "outDir": "dist",
-    "sourceRoot": "src",
-    "sourceMap": true,
-    "strict": true,
     "esModuleInterop": true,
+    "noEmitOnError": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
