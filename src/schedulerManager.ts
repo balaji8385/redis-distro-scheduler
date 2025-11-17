@@ -118,13 +118,10 @@ export class SchedulerManager {
     this.isSubscribed = true;
 
     // Subscribe to schedule sync channel
-    Promise.resolve(sub.subscribe(this.scheduleChannel)).catch((err) => {
+    sub.subscribe(this.scheduleChannel).catch(err => {
       // eslint-disable-next-line no-console
-      console.error(
-        "[redis-distro-scheduler] Failed to subscribe to schedule channel",
-        err
-      );
-    });
+      console.error("[redis-distro-scheduler] Failed to subscribe to schedule channel",err);
+    })
 
     sub.on("message", (channel: string, message: string) => {
       if (channel !== this.scheduleChannel) return;
@@ -155,9 +152,7 @@ export class SchedulerManager {
 
     try {
       const json = JSON.stringify(event);
-      Promise.resolve(
-        this.pubSub.pub.publish(this.scheduleChannel, json)
-      ).catch((err) => {
+      this.pubSub.pub.publish(this.scheduleChannel, json).catch((err) => {
         console.error(
           "[redis-distro-scheduler] Failed to publish schedule event",
           err
