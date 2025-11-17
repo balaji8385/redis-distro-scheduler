@@ -53,10 +53,6 @@ import type { ScheduleRecord } from "redis-distro-scheduler";
 
 ```ts
 import { SchedulerManager, type ScheduleRecord } from "redis-distro-scheduler";
-import Redis from "ioredis";
-
-const redis = new Redis(process.env.REDIS_URL);
-const sub = redis.duplicate();
 
 async function fetchAllEnabledSchedules(): Promise<ScheduleRecord[]> {
   // SELECT * FROM report_schedules WHERE enabled = 1;
@@ -72,7 +68,7 @@ async function callback(schedule: ScheduleRecord): Promise<void> {
 }
 
 const manager = new SchedulerManager({
-  redis,
+  redisUrl: process.env.REDIS_URL,
   callback,
   defaultMaxJitterMs: 30_000, // spread executions up to 30s per schedule
 });
@@ -103,16 +99,6 @@ sub.on("message", (_channel, msg) => {
       break;
   }
 });
-```
-
-From your API service, after writing to DB:
-
-```ts
-// example: create or update a schedule
-await redis.publish(
-  "report-schedules",
-  JSON.stringify({ type: "updated", schedule: savedSchedule })
-);
 ```
 
 ### 4. Tenancy guardrails
@@ -164,6 +150,9 @@ Low-level class, usually managed by `SchedulerManager`.
 
 ```ts
 import { Scheduler } from "redis-distro-scheduler";
+import Redis from "ioredis";
+
+const redis = new Redis(process.env.REDIS_URL);
 
 const scheduler = new Scheduler(async () => {
     console.log("Running nightly report...");
@@ -191,7 +180,7 @@ High-level orchestrator for many schedules.
 const manager = new SchedulerManager(callback: async (schedule) => {
     // ...
   }, {
-  redis
+  redisUrl: process.env.REDIS_URL
 });
 
 await manager.loadInitialSchedules(fetchAllEnabled);
